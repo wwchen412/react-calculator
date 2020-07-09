@@ -1,22 +1,22 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import {colors,device} from "./variableStyle";
+import { colors, device } from "./variableStyle";
 
-const Button =  (props)=>{
+const Button = (props) => {
   return (
-      <div className={props.className}>
-        <button onClick={props.onClick}>{props.buttonText}</button>
-      </div>
-  )
-}
+    <div className={props.className}>
+      <button onClick={props.onClick}>{props.buttonText}</button>
+    </div>
+  );
+};
 const StyleButton = styled(Button)`
-  max-width:calc((100% - 40px )/ 4);
-  height:0;
-  padding-bottom:calc((100% - 40px )/ 4);
-  margin:5px 5px;
-  width:100%;
+  max-width: calc((100% - 40px) / 4);
+  height: 0;
+  padding-bottom: calc((100% - 40px) / 4);
+  margin: 5px 5px;
+  width: 100%;
   position: relative;
-  button{
+  button {
     padding: 10px;
     border: none;
     background: none;
@@ -26,35 +26,35 @@ const StyleButton = styled(Button)`
     left: 0;
     top: 0;
     line-height: 100%;
-    background:${colors.bgGreyLight};
-    border-radius:100px;
-    font-size:1.8rem;
-    transition:.3s ease-out ;
-    @media ${device.mobileL}{
-      font-size:2.2rem;
+    background: ${colors.bgGreyLight};
+    border-radius: 100px;
+    font-size: 1.8rem;
+    transition: 0.3s ease-out;
+    @media ${device.mobileL} {
+      font-size: 2.2rem;
     }
-    &:hover,&:active{
+    &:hover,
+    &:active {
       filter: brightness(120%);
-
     }
   }
-  &.button--lg{
-      max-width:calc((100% - 25px) / 2);
-      button{
-        text-align:left;
-        padding-left:20%;
-      }
-    }
-  &.button--dark{
-    button{
-      background:${colors.bgGreyDark};
-      color:${colors.white};
+  &.button--lg {
+    max-width: calc((100% - 25px) / 2);
+    button {
+      text-align: left;
+      padding-left: 20%;
     }
   }
-  &.button--primary{
-    button{
-      background:${colors.bgPrimary};
-      color:${colors.white};
+  &.button--dark {
+    button {
+      background: ${colors.bgGreyDark};
+      color: ${colors.white};
+    }
+  }
+  &.button--primary {
+    button {
+      background: ${colors.bgPrimary};
+      color: ${colors.white};
     }
   }
 `;
