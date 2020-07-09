@@ -30,7 +30,7 @@ const StyleButton = styled(Button)`
     border-radius: 100px;
     font-size: 1.8rem;
     transition: 0.3s ease-out;
-    @media ${device.mobileL} {
+    @media ${device.tablet} {
       font-size: 2.2rem;
     }
     &:hover,

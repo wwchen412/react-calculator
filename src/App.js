@@ -1,13 +1,11 @@
-import React from 'react';
-import './App.css';
-import {ResetStyle, GlobalStyle} from './components/globalStyle';
-import Drag from './components/DragableCalculator'
-import OpenModal from './components/OpenModal';
+import React from "react";
+import "./App.css";
+import { ResetStyle, GlobalStyle } from "./components/globalStyle";
+import Drag from "./components/DragableCalculator";
+import OpenModal from "./components/OpenModal";
 
-import { useSelector,useDispatch } from "react-redux";
-import {
-  openModal
-} from "./actions";
+import { useSelector, useDispatch } from "react-redux";
+import { openModal } from "./actions";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,10 +15,12 @@ function App() {
       <ResetStyle />
       <GlobalStyle />
       <div className="conatiner">
-          {!isMoalOpen ?<OpenModal onClick={()=>dispatch(openModal())}/> : <Drag /> }
-
+        {!isMoalOpen ? (
+          <OpenModal onClick={() => dispatch(openModal())} />
+        ) : (
+          <Drag />
+        )}
       </div>
-
     </div>
   );
 }

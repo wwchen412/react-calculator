@@ -21,12 +21,12 @@ const calculator = (state = initialSate, action) => {
     case GET_NUM:
       if (state.isCalculatored) {
         return {
-          ...state,
+          ...initialSate,
           inputValue: action.num,
           calculator: [],
         };
       }
-      if (state.inputValue === "0" || state.isOperatored) {
+      if (state.inputValue == "0" || state.isOperatored) {
         return {
           ...state,
           inputValue: action.num,
@@ -78,10 +78,11 @@ const calculator = (state = initialSate, action) => {
         calculator: calculator,
       };
     case SET_SIGN:
+
       const value = state.inputValue * -1;
       return {
         ...state,
-        inputValue: value,
+        inputValue: value.toString(),
       };
     case PRESS_CALCULATE:
       if (!state.isCalculatored) {

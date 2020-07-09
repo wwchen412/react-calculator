@@ -1,20 +1,21 @@
-import React from 'react';
-import Draggable from 'react-draggable';
-import Calculator from '../components/Calculator';
+import React from "react";
+import Draggable from "react-draggable";
+import Calculator from "../components/Calculator";
 
 class Drag extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      isDesktop: false ,
+      isDesktop: false,
       activeDrags: 0,
-    deltaPosition: {
-      x: 0, y: 0
-    },
-    controlledPosition: {
-      x: -400, y: 200
-    }
+      deltaPosition: {
+        x: 0,
+        y: 0,
+      },
+      controlledPosition: {
+        x: -400,
+        y: 200,
+      },
     };
 
     this.updatePredicate = this.updatePredicate.bind(this);
@@ -30,22 +31,23 @@ class Drag extends React.Component {
   }
 
   updatePredicate() {
-    this.setState({ isDesktop: window.innerWidth <475 });
+    this.setState({ isDesktop: window.innerWidth < 480 });
   }
 
   render() {
-    const dragHandlers = {onStart: this.onStart, onStop: this.onStop}
+    const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
     const isDesktop = this.state.isDesktop;
     return (
       <>
-      {
-        isDesktop ? <Calculator></Calculator>:<Draggable {...dragHandlers}>
-        <div>
+        {isDesktop ? (
           <Calculator></Calculator>
-        </div>
-      </Draggable>
-      }
-
+        ) : (
+          <Draggable {...dragHandlers}>
+            <div>
+              <Calculator></Calculator>
+            </div>
+          </Draggable>
+        )}
       </>
     );
   }
