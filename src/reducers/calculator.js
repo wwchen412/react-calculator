@@ -21,7 +21,7 @@ const calculator = (state = initialSate, action) => {
     case GET_NUM:
       if (state.isCalculatored) {
         return {
-          ...initialSate,
+          ...state,
           inputValue: action.num,
           calculator: [],
         };
@@ -53,7 +53,6 @@ const calculator = (state = initialSate, action) => {
       const symbol = action.operator;
       const { inputValue, calculator, isOperatored, isCalculatored } = state;
       if (!isOperatored && !isCalculatored) {
-        console.log("!isOperatored");
         calculator.push(inputValue);
         const exportString = calculator.toString().replace(/,/g, "");
         const exportValue = eval(exportString);

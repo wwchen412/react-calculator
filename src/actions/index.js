@@ -4,6 +4,8 @@ export const PRESS_AC = "PRESS_AC";
 export const SET_SIGN = "SET_SIGN";
 export const GET_OPERATOR = "GET_OPERATOR";
 export const PRESS_CALCULATE = "PRESS_CALCULATE";
+export const OPEN_MODAL = "OPEN_MODAL";
+export const CLOSE_MODAL = "CLOSE_MODAL";
 
 export const getNum = (num) => {
   return {
@@ -38,3 +40,14 @@ export const pressCalculate = () => {
     type: PRESS_CALCULATE,
   };
 };
+
+export const openModal = () =>{
+  return{
+    type:OPEN_MODAL
+  }
+}
+export const closeModal = () =>{
+  return{
+    type:CLOSE_MODAL
+  }
+}

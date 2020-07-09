@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{ useRef, useEffect }from "react";
 import styled from "styled-components";
 import { colors, device } from "./variableStyle";
 import StyleButton from "./Button";
@@ -11,67 +11,35 @@ import {
   setSign,
   pressCalculate,
   getPercent,
+  closeModal
 } from "../actions";
 
-const StyledCalculator = styled.div`
-  .calculator {
-    height: 50vh;
-    overflow-y: scroll;
-    @media ${device.mobileL} {
-      height: auto;
-      overflow: initial;
-    }
-    &__output {
-      color: #fff;
-      text-align: right;
-      font-size: 2rem;
 
-      h1 {
-        font-size: 4rem;
-        text-align: right;
-        padding: 5px;
-        /* padding-top:3rem; */
-        @media ${device.mobileL} {
-          font-size: 6rem;
-        }
-      }
-      h3{
-        height: 2rem;
-      }
-    }
-    &__container {
-      max-width: 450px;
-      padding: 5px;
-    }
-    &__bg {
-      background-image: linear-gradient(
-        to bottom,
-        ${colors.bgPrimaryLight},
-        ${colors.bgPrimaryDark}
-      );
-    }
-    &__input {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-  }
-`;
 
-const Calculator = () => {
-  const outPutText = useSelector((state) => state.inputValue);
-  const operatorText = useSelector((state) => state.calculatorString);
+
+const Calculator = ({ className, children }) => {
+  const outPutText = useSelector((state) => state.calculator.inputValue);
+  const operatorText = useSelector((state) => state.calculator.calculatorString);
   const dispatch = useDispatch();
+  const myRef = useRef();
+  const handleClickOutside = e => {
+    if (!myRef.current.contains(e.target)) {
+        dispatch(closeModal())
+    }
+};
+useEffect(() => {
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => document.removeEventListener('mousedown', handleClickOutside);
+});
+
   return (
-    <StyledCalculator>
-      <div className="calculator">
-        <div className="calculator__container calculator__bg">
-          <div className="calculator__output">
+      <div id="calculator" className={className+" "+className+"__bg"} ref={myRef}>
+          <div className={className+"__output"}>
             <h3>{operatorText}</h3>
             <h1>{outPutText}</h1>
           </div>
 
-          <div className="calculator__input">
+          <div className={className+"__input"}>
             <StyleButton buttonText="AC" onClick={() => dispatch(pressAC())} />
             <StyleButton buttonText="+/-" onClick={() => dispatch(setSign())} />
             <StyleButton
@@ -159,9 +127,51 @@ const Calculator = () => {
               onClick={() => dispatch(pressCalculate())}
             />
           </div>
-        </div>
       </div>
-    </StyledCalculator>
   );
 };
-export default Calculator;
+
+const StyledCalculator = styled(Calculator)`
+
+    max-width: 450px;
+      padding: 5px;
+    height: 50vh;
+    overflow-y: scroll;
+    @media ${device.mobileL} {
+      height: auto;
+      overflow: initial;
+    }
+    &__output {
+      color: #fff;
+      text-align: right;
+      font-size: 2rem;
+
+      h1 {
+        font-size: 4rem;
+        text-align: right;
+        padding: 5px;
+        /* padding-top:3rem; */
+        @media ${device.mobileL} {
+          font-size: 6rem;
+        }
+      }
+      h3{
+        height: 2rem;
+      }
+    }
+    &__bg {
+      background-image: linear-gradient(
+        to bottom,
+        ${colors.bgPrimaryLight},
+        ${colors.bgPrimaryDark}
+      );
+    }
+    &__input {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+`;
+
+export default StyledCalculator;

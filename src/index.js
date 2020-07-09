@@ -6,9 +6,9 @@ import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import calculator from './reducer';
+import rootReducer from './reducers';
 
-const store = createStore(calculator);
+const store = createStore(rootReducer);
 
 // const unsubscribe = store.subscribe(() =>
 //   console.log(store.getState())
