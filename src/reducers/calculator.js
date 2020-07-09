@@ -26,7 +26,7 @@ const calculator = (state = initialSate, action) => {
           calculator: [],
         };
       }
-      if (state.inputValue == "0" || state.isOperatored) {
+      if (state.inputValue === "0" || state.isOperatored) {
         return {
           ...state,
           inputValue: action.num,
@@ -44,9 +44,10 @@ const calculator = (state = initialSate, action) => {
         calculator: [],
       };
     case GET_PERCENT: {
+      const addDotNum = state.inputValue * 0.01
       return {
         ...state,
-        inputValue: state.inputValue * 0.01,
+        inputValue: addDotNum.toString(),
       };
     }
     case GET_OPERATOR:
