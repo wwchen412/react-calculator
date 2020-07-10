@@ -17,16 +17,17 @@ const initialSate = {
 };
 
 const calculator = (state = initialSate, action) => {
+  const { inputValue, calculator, isOperatored, isCalculatored } = state;
   switch (action.type) {
     case GET_NUM:
-      if (state.isCalculatored) {
+      if (isCalculatored) {
         return {
           ...initialSate,
           inputValue: action.num,
           calculator: [],
         };
       }
-      if (state.inputValue === "0" || state.isOperatored) {
+      if (inputValue === "0" || isOperatored) {
         return {
           ...state,
           inputValue: action.num,
@@ -35,7 +36,7 @@ const calculator = (state = initialSate, action) => {
       }
       return {
         ...state,
-        inputValue: state.inputValue + action.num,
+        inputValue: inputValue + action.num,
         isOperatored: false,
       };
     case PRESS_AC:
@@ -44,7 +45,7 @@ const calculator = (state = initialSate, action) => {
         calculator: [],
       };
     case GET_PERCENT: {
-      const addDotNum = state.inputValue * 0.01
+      const addDotNum = inputValue * 0.01;
       return {
         ...state,
         inputValue: addDotNum.toString(),
@@ -52,43 +53,46 @@ const calculator = (state = initialSate, action) => {
     }
     case GET_OPERATOR:
       const symbol = action.operator;
-      const { inputValue, calculator, isOperatored, isCalculatored } = state;
+
+      const updateCalculator = [...calculator];
       if (!isOperatored && !isCalculatored) {
-        calculator.push(inputValue);
-        const exportString = calculator.toString().replace(/,/g, "");
+        updateCalculator.push(inputValue);
+        const exportString = updateCalculator.toString().replace(/,/g, "");
         const exportValue = eval(exportString);
-        calculator.push(symbol);
+        updateCalculator.push(symbol);
         return {
           ...state,
           isOperatored: true,
           calculatorString: exportString,
           resultValue: exportValue,
           inputValue: exportValue.toString(),
+          calculator: updateCalculator,
         };
       }
       if (isCalculatored) {
-        calculator.push(symbol);
+        updateCalculator.push(symbol);
         return {
           ...state,
           isCalculatored: false,
           isOperatored: true,
+          calculator: updateCalculator,
         };
       }
       return {
         ...state,
-        calculator: calculator,
+        calculator: updateCalculator,
       };
     case SET_SIGN:
-
-      const value = state.inputValue * -1;
+      const value = inputValue * -1;
       return {
         ...state,
         inputValue: value.toString(),
       };
     case PRESS_CALCULATE:
-      if (!state.isCalculatored) {
-        state.calculator.push(state.inputValue);
-        const exportString = state.calculator.toString().replace(/,/g, "");
+      if (!isCalculatored) {
+        const updateCaculator = [...calculator];
+        updateCaculator.push(inputValue);
+        const exportString = updateCaculator.toString().replace(/,/g, "");
         const exportValue = eval(exportString);
         return {
           ...state,
@@ -96,6 +100,7 @@ const calculator = (state = initialSate, action) => {
           calculatorString: exportString,
           inputValue: exportValue.toString(),
           isCalculatored: true,
+          calculator: updateCaculator,
         };
       }
     default:

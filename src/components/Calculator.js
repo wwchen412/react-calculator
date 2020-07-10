@@ -139,6 +139,7 @@ const StyledCalculator = styled(Calculator)`
   position: fixed;
   left: 0;
   bottom: 0;
+  margin: auto;
   @media ${device.mobileL} {
     position: static;
     max-width: 360px;
